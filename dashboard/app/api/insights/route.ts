@@ -24,7 +24,7 @@ export async function GET() {
       rankingFormula: "priority_score = severity_sum = complaint_count × mean_severity",
       source: "saved Assignment 5 final 100,100-review grading artifacts",
       syntheticCasesExcluded: true,
-      recommendationSource: "saved Jev model output inferred from ranking and evidence; persisted in D1",
+      recommendationSource: "saved Jev choice output inferred from ranking and evidence; persisted in D1",
     },
   });
 }

@@ -104,7 +104,7 @@ export default async function Home() {
       <section className="border-y-2 border-[#121812] bg-[#c7b5ff] px-5 py-16 sm:px-10 lg:px-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.45fr_1fr]">
           <div>
-            <p className="eyebrow">Jev-generated recommendation</p>
+            <p className="eyebrow">AI-inferred recommendation</p>
             <span className="mt-8 inline-grid h-16 w-16 place-items-center rounded-full border-2 border-[#121812] bg-[#fffdf6]">
               <ArrowUpRight className="h-8 w-8" />
             </span>

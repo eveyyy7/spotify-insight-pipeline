@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate one dashboard recommendation with Jev and retain call evidence."""
+"""Select one dashboard recommendation with Jev and retain call evidence."""
 
 import argparse
 import csv

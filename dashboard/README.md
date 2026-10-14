@@ -3,8 +3,9 @@
 Public dashboard for the UC Berkeley Haas Spotify Insight Pipeline. The page and
 `/api/insights` read versioned analysis data from Cloudflare D1.
 
-The recommendation displayed on the page is the retained output of a Jev call,
-not a UI constant. Its model, request ID, confidence, token usage, input-state
+The recommendation displayed on the page is the retained choice output of a
+Jev inference call, not a UI constant. Jev produces calibrated structured
+decisions rather than free-form prose. Its model, request ID, confidence, token usage, input-state
 hash, and selected text are stored in D1 and exposed by the API. The same import
 also persists the eight ranking rows, 32 checker-linked claims, three displayed
 evidence records, and a deterministic 500-row sample of processed playback
