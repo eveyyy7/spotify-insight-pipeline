@@ -1,0 +1,21 @@
+{
+  "slice": [490, 498],
+  "cache_condition": "identical empty exact-text result caches",
+  "provider": "deterministic localhost integration provider",
+  "one_worker_seconds": 1.496,
+  "two_worker_seconds": 0.817,
+  "speedup": 1.83,
+  "outputs_identical": true,
+  "one_worker_calls": 8,
+  "two_worker_calls": 8,
+  "duplicate_successful_calls": 0,
+  "guard_queue": {
+    "completed": 2,
+    "pending": 6
+  },
+  "guard_ledger": {
+    "cap_usd": 0.0002,
+    "spent_estimated_usd": 0.0002,
+    "reserved_usd": 0.0
+  }
+}

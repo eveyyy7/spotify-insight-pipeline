@@ -1,0 +1,32 @@
+10K Checkpoint Failure Recovery Evidence
+
+Initial run:
+- Input rows: 10000
+- Completed: 9999
+- Failed: 1
+- Cache hits: 1552
+- API attempts: 8448
+- Retries: 1
+- Input tokens: 7913990
+- Output tokens: 1659887
+
+Failure:
+- review_id: 5a144aed-3fdb-4d56-a045-7e021cc7de47
+- Failure type: API read timeout
+- Attempt 1: timeout
+- Attempt 2: timeout
+- Failed result was not written to cache.
+
+Resume run:
+- Completed: 10000
+- Failed: 0
+- Cache hits: 9999
+- API attempts: 1
+- Retries: 0
+- Input tokens: 925
+- Output tokens: 196
+
+Result:
+- Previously completed reviews were recovered from cache.
+- Only the previously failed review required a new enrichment API call.
+- No full rerun was required.

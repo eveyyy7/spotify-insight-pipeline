@@ -1,0 +1,32 @@
+.env
+.env.*
+!.env.example
+
+# Credentials, local runtimes, and mutable state
+.venv/
+__pycache__/
+*.pyc
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Raw/large source data and local checker references
+spotify_reviews_18months.csv
+local-reference.json
+self-check.json
+self-check*.json
+.DS_Store
+
+# Resumable work state and generated deployment internals
+grading_full/
+grading_parallel_benchmark_*/
+grading_resume_test/
+grading_smoke/
+cost_pilot/
+cache*.json
+.wrangler/
+.sites-runtime/
+node_modules/
+
+# Accidental shell/editor artifact from early development
+touch run_grouping.py

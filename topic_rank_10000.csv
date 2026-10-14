@@ -1,0 +1,9 @@
+rank,issue_id,topic,total_reviews,complaint_count,mean_complaint_severity,severity_sum,priority_score,cancellation_count,needs_review_count
+1,topic:usability,usability,1638,1237,2.622,3244,3244,111,763
+2,topic:other,other,6000,1204,1.867,2248,2248,103,1096
+3,topic:playback,playback,625,560,3.495,1957,1957,44,300
+4,topic:billing,billing,894,658,2.888,1900,1900,104,495
+5,topic:catalog,catalog,478,287,3.077,883,883,16,276
+6,topic:access,access,204,185,3.897,721,721,7,72
+7,topic:downloads,downloads,149,103,3.466,357,357,3,66
+8,topic:support,support,12,5,2.0,10,10,3,6

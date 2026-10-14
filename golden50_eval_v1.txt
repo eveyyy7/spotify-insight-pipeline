@@ -1,0 +1,23 @@
+Golden 50 Holdout Evaluation - v1
+
+Model: jev-latest
+Prompt version: v1
+Schema version: v1
+
+Golden rows: 50
+Prediction rows: 50
+Matched rows: 50
+
+Topic accuracy: 84.0% (42/50)
+Intent accuracy: 92.0% (46/50)
+Severity exact accuracy: 88.0% (44/50)
+Severity MAE: 0.120
+Sentiment MAE: 0.134
+Needs-review agreement: 74.0% (37/50)
+
+Rows with topic/intent/severity error: 15
+
+Important:
+Golden 50 is treated as a held-out evaluation set.
+Its labels will not be used to modify prompts, schemas,
+thresholds, or fallback rules for v1.

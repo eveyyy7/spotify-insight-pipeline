@@ -1,0 +1,93 @@
+Spotify Insight Pipeline - Recommendation Evidence
+
+PRIMARY RECOMMENDATION
+
+Prioritize reducing free-tier friction caused by Premium gating of core playback controls, especially:
+- song selection
+- queue management
+- repeat
+- skip / previous
+- seeking within tracks
+
+THEME RANKING
+
+1. free_tier_premium_gating
+   - Priority score: 2474
+   - Complaint count: 833
+   - Mean severity: 2.970
+
+2. playback_reliability
+   - Priority score: 1221
+   - Complaint count: 345
+   - Mean severity: 3.539
+
+3. ads_experience
+   - Priority score: 1191
+   - Complaint count: 520
+   - Mean severity: 2.290
+
+4. product_regression_ui
+   - Priority score: 973
+   - Complaint count: 351
+   - Mean severity: 2.772
+
+WHY #1 WINS
+
+Free-tier Premium gating is not the most severe issue per complaint,
+but it combines high complaint volume with meaningful severity.
+
+Its cumulative priority score (2474) is approximately twice that of
+playback reliability (1221).
+
+Ads generate more complaints than several other issues, but their
+mean severity is substantially lower (2.29), producing a lower
+priority score (1191).
+
+TOP SUB-ISSUES WITHIN FREE-TIER / PREMIUM GATING
+
+1. billing__premium_feature_paywall
+   - Score: 1362
+   - Complaints: 425
+   - Mean severity: 3.205
+
+2. billing__premium_pressure_pricing
+   - Score: 593
+   - Complaints: 252
+   - Mean severity: 2.353
+
+3. usability__playback_controls_restricted
+   - Score: 519
+   - Complaints: 156
+   - Mean severity: 3.327
+
+REPRESENTATIVE USER EVIDENCE
+
+Quote 1:
+"Wanted this so I could listen to Doctor Who audio dramas at work,
+found out it was basically impossible to play the tracks in their
+intended order without premium. Ads I can accept, but locking basic
+functionality behind a paywall is vile."
+
+Quote 2:
+"Used to be my favourite app but after the recent update I can't even
+que up my songs, play on repeat or even skip or replay a part of the
+song for free. They turned everything into a premium feature."
+
+Quote 3:
+"I can't choose the songs I want to play. Has to be a premium
+subscription for that, the most basic thing to do. No thanks!"
+
+COMPARISON
+
+Playback reliability:
+- Higher mean severity (3.539)
+- Lower affected complaint volume (345)
+- Priority score 1221
+
+Ads experience:
+- Higher complaint volume than many individual sub-issues (520)
+- Lower mean severity (2.290)
+- Priority score 1191
+
+Therefore, Premium gating creates the largest cumulative complaint
+burden among the actionable themes in the 10K analysis.

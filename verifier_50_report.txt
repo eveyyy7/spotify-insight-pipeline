@@ -1,0 +1,26 @@
+Independent Verification Sample
+
+Sample:
+- Source: checkpoint_500.csv
+- Sample size: 50
+- Random seed: 42
+- Verifier did not receive enricher predictions
+
+Verifier run:
+- Completed: 50
+- Failed: 0
+- API attempts: 50
+- Retries: 0
+- Input tokens: 44420
+- Output tokens: 9066
+
+Comparison with enricher:
+- Topic disagreement: 2/50 (4.0%)
+- Intent disagreement: 0/50 (0.0%)
+- Severity disagreement: 4/50 (8.0%)
+- Any disagreement: 6/50 (12.0%)
+
+Interpretation:
+- Verifier is used as an independent quality signal.
+- Disagreement does not automatically overwrite the enricher result.
+- Disagreement should trigger needs_review / escalation.

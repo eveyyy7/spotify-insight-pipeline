@@ -1,0 +1,51 @@
+review_id,review_text,verifier_topic,verifier_topic_confidence,verifier_intent,verifier_intent_confidence,verifier_severity,verifier_severity_confidence,cache_hit,attempts,input_tokens,output_tokens,status
+27aeb125-266a-47c9-85f5-bd8a56b4d6c3,Have been a customer for years and have always been satisfied. I have worked remotely without cell or internet and I like that I can still play all my collections.,downloads,0.86,praise,1.0,1,1.0,False,1,904,181,completed
+67b21b33-e6b9-4d1a-b874-86bc182b9ada,Spotify: music and pod system,other,1.0,unclear,0.99,1,1.0,False,1,876,181,completed
+f44b3617-a645-4375-ae2d-44b742a1a306,Excellent!,other,1.0,praise,1.0,1,1.0,False,1,874,181,completed
+8c81b973-f8c0-4d32-b0e0-844601f266fa,Good 👍,other,1.0,praise,0.99,1,1.0,False,1,875,181,completed
+9f7a013a-082e-4ec1-8a65-a1e0a0395d20,Nice app but why can't the lyrics of song on my playlist load?,catalog,1.0,complaint,0.99,3,0.57,False,1,887,181,completed
+15502657-31ee-440e-8df3-2c405b5da275,"An awesome application, one of the BEST. If u don't have it you are missing out. You can play almost any song for free with just a quick registration. You get to skip 6 songs every hour. Songs still keep playing but if u want unlimited skips u have to pay ~ $10. I love Spotify! Thanks to Spotify I can carry all my fav songs on one device qnd access it on any other device... Its amazing <3",billing,0.47,praise,1.0,1,0.87,False,1,964,181,completed
+61d5fc66-9bd1-4a18-8185-ae9a451e05a3,Best experience,other,1.0,praise,1.0,1,1.0,False,1,873,181,completed
+ab67a772-c3b7-42ba-9b80-8d21d3857018,The ads are so loud :'(,usability,1.0,complaint,1.0,2,0.94,False,1,878,183,completed
+8b8e60dc-c64c-4c65-9e5c-5bb2df16d384,"Electrifying, AWESOME 👌 👏 👍",other,1.0,praise,1.0,1,1.0,False,1,887,181,completed
+035213ba-b1b9-411c-b028-70296e5f0e73,I m using this app from 5 to 6 year but now m uninstald this app cz his premium adds are everywhere now .,usability,0.91,cancellation,1.0,2,0.64,False,1,899,185,completed
+4a2ba740-231c-406e-a7a1-c31349e99c44,Latest policy adds too much restriction for free users. Its like either you should be a premium user or you need to switch to different music app,billing,0.95,complaint,1.0,3,0.86,False,1,899,181,completed
+d0150464-7f34-43b2-b729-bbbc5354db7e,Verrrryyyy gud man I lobe this app,other,1.0,praise,1.0,1,1.0,False,1,880,181,completed
+66c56c76-ca94-46ef-b0a1-931654ead16d,"Wanted this so I could listen to Doctor Who audio dramas at work, found out it was basically impossible to play the tracks in their intended order without premium. Ads I can accept, but locking basic functionality behind a paywall is vile.",billing,0.97,complaint,1.0,4,0.61,False,1,916,181,completed
+5c9c17d3-9d6a-4fa1-a2a4-ae98eefbbd25,Your new features are really bad thing that I found because it plays any song of the Playlist randomly it really really disappointing for and listeners who don't need disturbance in their song patterns. I apologise to your team for reverse your updated or change the new features to old features . Thanks 😊,playback,0.62,complaint,0.85,3,0.71,False,1,926,182,completed
+86adc9b6-be58-400c-9a08-aa082ff0535c,Very bad experience ever faced by any app. They are literally forcing us to purchase Spotify premium.,billing,1.0,complaint,1.0,4,0.47,False,1,886,181,completed
+19effee5-bf96-4313-8cf9-1ac996c1c4f1,Worst appa i ever came across,other,0.92,complaint,1.0,2,0.91,False,1,876,181,completed
+b92a7381-b5cd-4c77-9176-e5c4b4818c8a,You deserve 0 star,other,1.0,complaint,0.99,2,0.66,False,1,876,181,completed
+178c3b49-b689-4fe4-92a2-2257a58e6d95,Worst app.,other,0.99,complaint,1.0,2,0.86,False,1,876,181,completed
+3e82cf28-6b0a-4980-902c-b6aa154d353a,"Aakhir kar spotify ne bhi apni bhikaariyo vali aukaat dikha di ""Gadar karbe"" Chanda mangna got real Bhikaariyo ko training dena bhi shuru kardo haramiyo",billing,0.86,complaint,1.0,2,0.81,False,1,918,181,completed
+d26566f7-a898-4298-a06a-50bd3f7319c1,Could be doing with hi-res audio don't like getting bombarded with playlist recommendations when the option is turned off,usability,0.52,complaint,0.95,2,0.76,False,1,895,183,completed
+35008b46-daf1-497c-ac9b-fe98f120f912,Good app,other,1.0,praise,1.0,1,1.0,False,1,870,181,completed
+00a77161-cb3f-4fae-a7b6-eca2cfc124ec,Excellent quality and great choice,other,0.99,praise,1.0,1,1.0,False,1,872,181,completed
+02365ec7-f37a-419a-b26d-bf2467d38461,👍,other,1.0,praise,0.9,1,1.0,False,1,872,181,completed
+5d4d3f47-4b3c-4be4-8f11-6cca41d27068,Good aap,other,0.98,praise,0.95,1,1.0,False,1,874,181,completed
+9ce5f16c-aef0-48eb-ace1-91905796bc3d,Everything is good about this app but i don't know why the app starts facing issue while i search a song app shows that i don't have an internet connection even though my net is on at a good speed and app shows that i am offline but still the songs are being played which are in my playlist and additionally now I am not even able to log in into my application even after trying for several time,access,0.84,complaint,1.0,4,0.97,False,1,948,181,completed
+f7cc1aa7-c306-4f5b-a5e9-911cca07fa60,Hate this application 😡😡😡bakwas,other,0.98,complaint,1.0,2,0.85,False,1,880,181,completed
+aa94c946-8e7c-48dd-a673-87c5389b2edd,Great just great,other,1.0,praise,0.95,1,1.0,False,1,872,181,completed
+88813438-756d-4197-a038-bc0d6439f7fd,So nice aaps..,other,0.94,praise,0.95,1,0.99,False,1,876,181,completed
+7eaaccd9-bf5a-4bdf-b5a0-31abbe500039,Always available with the latest music etc.,other,0.43,praise,0.99,1,1.0,False,1,874,181,completed
+c7df9cb8-7bec-4036-a6a1-1353d2d705d8,Won't cast to other devices. Gives me random songs I hate. This app should be renamed the helicopter app cuz it doesn't play music and just shows a spinning iconic kind of looks like a helicopter,playback,0.78,complaint,1.0,4,0.91,False,1,909,182,completed
+6db48f4b-20a0-460f-9beb-e07cd20f9fab,Awesom,other,1.0,praise,0.99,1,1.0,False,1,869,181,completed
+a862b037-7542-4a3e-94ef-836b7092f4ef,Waste of Data and Storage in our phone,downloads,0.76,complaint,1.0,2,0.74,False,1,881,181,completed
+5fb51bd0-dbe9-4a19-a466-a77f0c14393e,No good,other,1.0,complaint,1.0,2,0.96,False,1,870,181,completed
+28711041-0c42-432c-a1ad-63be8278ebec,Very bad and pathetic even this rudes my mind more,other,0.99,complaint,1.0,2,0.87,False,1,880,181,completed
+4d7c1b3b-b7f8-417e-a984-6ae27c3acef5,Too much of advertisements... Make irritated,usability,1.0,complaint,1.0,2,0.91,False,1,876,183,completed
+2117a268-4c74-4795-9a11-00799e3fc450,amazing,other,1.0,praise,1.0,1,1.0,False,1,875,181,completed
+a78d831a-69f4-428a-9235-cfdd9775c509,"You can't even listen to music you want it just shuffles it, like what the hell? This app is killing it self and forcing you to pay premium for basic things like just listening to music.",playback,0.43,complaint,1.0,3,0.41,False,1,914,182,completed
+a0036cd0-72ae-4d2d-98a1-c12938dd166c,its getting worse,other,1.0,complaint,1.0,2,0.75,False,1,873,181,completed
+b5c993cb-5447-409a-8ea4-b8d8b2952145,Use this for bus rides car rides train rides. Had premium for student which was amazing. Still loving regular individual premium. Helps me a lot. 100/10,other,0.57,praise,1.0,1,1.0,False,1,907,181,completed
+d455c11e-c530-4c03-a395-38f5a5cdb8d3,"I really have enjoyed the blend feature you've released. I can't wait to see it expanded upon. Like being able to rename the blends you make would be nice. The same issue as 5 years ago when I left a review still persists. Spotify constantly rolls out new major UX updates without any use of their beta program. Rolling out big automatically playing audio elements,without any clear way to disable the automatic playing in the settings? Seriously? That kind of stuff should be opt-in...",usability,0.99,complaint,0.96,2,0.6,False,1,970,183,completed
+ac480d7d-1af8-48ab-b581-ab13ede82e67,❤️ it its yes yes and very easy to set up a program for your love of music...,other,0.85,praise,0.97,1,1.0,False,1,885,181,completed
+710e1aee-ed80-4753-9c4e-c63bee84fd56,Excellent,other,1.0,praise,1.0,1,1.0,False,1,868,181,completed
+916d1cb1-3a9f-42c0-9c36-fee4b1983c68,L lovethemusic,other,1.0,praise,0.96,1,1.0,False,1,876,181,completed
+16929558-ce1e-4b87-8738-a1de3f557f66,I paid my subscription and im still getting a pause subscription screen and can't access my music...... help me,billing,0.74,complaint,0.91,4,1.0,False,1,891,181,completed
+e27a8abd-a52e-469b-a0db-79ce8711226c,Yes I wouldn't be alive if it weren't for this app,other,1.0,praise,0.97,1,0.99,False,1,881,181,completed
+c0f03952-e067-4f25-99fc-18a1a045ed9f,Just move it back to the way it was😒,usability,0.86,request,0.87,2,0.49,False,1,882,182,completed
+fac0295e-9b7a-4422-bf77-6faf41eaea55,Like this app i can play over days,other,0.94,praise,0.96,1,1.0,False,1,875,181,completed
+9d15352b-b78f-477b-b56f-44a6698ba55a,"Like it, pretty much can enjoy what I,m hearing 75 percent of every day",other,0.73,praise,0.85,2,0.21,False,1,889,181,completed
+ca16e65d-d2ff-4453-a495-b8c422809330,Recent update 👎,other,0.97,complaint,1.0,2,0.85,False,1,874,181,completed
+7b7b7855-cf14-4b59-bdc6-12916e833002,Ok,other,1.0,unclear,1.0,1,1.0,False,1,872,181,completed

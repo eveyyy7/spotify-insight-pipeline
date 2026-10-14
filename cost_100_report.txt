@@ -1,0 +1,34 @@
+Spotify Insight Pipeline - 100 Review Cost Pilot
+
+Cold run
+- Reviews: 100
+- Completed: 100
+- Failed: 0
+- Cache hits: 0
+- API attempts: 100
+- Retries: 0
+- Total input tokens: 93659
+- Total output tokens: 19663
+
+Warm replay
+- Reviews: 100
+- Completed: 100
+- Failed: 0
+- Cache hits: 100
+- API attempts: 0
+- Retries: 0
+- Total input tokens: 0
+- Total output tokens: 0
+
+Call log
+- File: calls_100.jsonl
+- Logged API attempts: 100
+
+Configuration
+- Model: jev-latest
+- Prompt version: v1
+- Schema version: v1
+- Max retries: 1
+
+Key result
+- Warm replay produced zero new enrichment API calls.

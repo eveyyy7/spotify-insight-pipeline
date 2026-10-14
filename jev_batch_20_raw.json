@@ -1,0 +1,67 @@
+{
+  "model": "jev-1.13.0",
+  "answers": {
+    "topic": {
+      "type": "choice",
+      "choice": "billing",
+      "confidence": 0.99,
+      "probabilities": {
+        "access": 0.0,
+        "usability": 0.01,
+        "playback": 0.0,
+        "downloads": 0.0,
+        "catalog": 0.0,
+        "billing": 0.99,
+        "support": 0.0,
+        "other": 0.0
+      }
+    },
+    "intent": {
+      "type": "choice",
+      "choice": "complaint",
+      "confidence": 0.75,
+      "probabilities": {
+        "cancellation": 0.0,
+        "complaint": 0.8,
+        "request": 0.0,
+        "praise": 0.17,
+        "unclear": 0.03
+      }
+    },
+    "severity": {
+      "type": "choice",
+      "choice": "3",
+      "confidence": 0.42,
+      "probabilities": {
+        "1": 0.01,
+        "2": 0.0,
+        "3": 0.54,
+        "4": 0.45,
+        "5": 0.0
+      }
+    },
+    "sentiment": {
+      "type": "score",
+      "score": 2.65,
+      "confidence": 0.69,
+      "legend": {
+        "0": "Strongly negative",
+        "1": "Negative",
+        "2": "Neutral or unclear",
+        "3": "Positive",
+        "4": "Strongly positive"
+      },
+      "probabilities": {
+        "0": 0.0,
+        "1": 0.08,
+        "2": 0.2,
+        "3": 0.71,
+        "4": 0.01
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 2073,
+    "output_tokens": 196
+  }
+}
