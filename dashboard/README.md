@@ -1,6 +1,25 @@
-# vinext-starter
+# Spotify Insight Dashboard
 
-A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
+Public dashboard for the UC Berkeley Haas Spotify Insight Pipeline. The page and
+`/api/insights` read versioned analysis data from Cloudflare D1.
+
+The recommendation displayed on the page is the retained output of a Jev call,
+not a UI constant. Its model, request ID, confidence, token usage, input-state
+hash, and selected text are stored in D1 and exposed by the API. The same import
+also persists the eight ranking rows, 32 checker-linked claims, three displayed
+evidence records, and a deterministic 500-row sample of processed playback
+complaint/cancellation labels and hashes. Raw review text is retained only for
+the three displayed evidence records.
+
+## Rebuild the data snapshot
+
+From the repository root, first run `scripts/generate-ai-recommendation.py` with
+the final `grading/ranking.csv` and `grading/records.jsonl.gz`. Then run
+`scripts/build-dashboard-data.py` with ranking, claims, records, and the saved
+recommendation artifact. Both scripts require explicit input/output paths, so
+offline builds never make an accidental model call. The generated
+`data/dashboard-data.json` is the sole runtime import source; a source digest
+prevents repeated D1 imports, and new versions replace stale rows.
 
 ## Prerequisites
 

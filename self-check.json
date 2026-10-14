@@ -86,7 +86,7 @@
   "examples": [],
   "hash_convention": "Reference/benchmark: canonical UTF-8 JSON via canonical(); input files and audit script: exact bytes.",
   "input_files_sha256": {
-    "calls.jsonl.gz": "890346b87ddfe5d50add7b4393a8b130ad194a6208c638314fd04decc2744a0b",
+    "calls.jsonl.gz": "f92585fa11e6b2c6dd4dde0402c83bccd427fd5c265275c5422c06121936a672",
     "checkpoint_after.json": "70a56926a82fb9c8500b7cbb3444451c03b768bac66a32b695a9f6038067e83d",
     "checkpoint_before.json": "68fc0677634fdf575bbc3b35f54f2afc91ad101c398d5310c2aa08daa0569be2",
     "claims.csv": "02c5261ad225eb93a7a10c12ee277799760e576c4456984633d34fe571dd41cf",
@@ -110,9 +110,9 @@
     "status": "not_supplied"
   },
   "reference_sha256": "7d8acef63429e945f59816338f4f5dc8ce78da449efd6f4bfd6a6365e0d42ec9",
-  "reported_calls": 76231,
-  "reported_input_tokens": 71507762,
-  "reported_output_tokens": 15012594,
+  "reported_calls": 76232,
+  "reported_input_tokens": 71509953,
+  "reported_output_tokens": 15012799,
   "status": "pass",
   "working_coverage_point_candidate": 1.0
 }

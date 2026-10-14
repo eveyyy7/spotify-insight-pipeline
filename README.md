@@ -24,7 +24,7 @@ unresolved IDs**.
 | Complaint records | 29,986 |
 | Cancellation-intent records | 1,596 |
 | Records flagged for review | 22,365 |
-| Measured-rate API cost | $3.0033 |
+| Measured-rate API cost | $3.0034 |
 | Conservative spend-ledger total | $7.5967 / $10 cap |
 | Mechanical checker | PASS — 0 issues |
 
@@ -104,7 +104,7 @@ and retain the returned `jev-1.13.0` model identifier in the call evidence. No
 Luna or Haiku result is claimed. This was a deliberate cost and evidence
 decision: Jev's fixed-schema output reached 84% topic accuracy, 92% intent
 accuracy, and 0.120 severity MAE on the held-out Golden 50; the entire submitted
-100,100-row scope cost $3.0033 at the saved rate. Adding a second provider would
+100,100-row scope cost $3.0034 at the saved rate. Adding a second provider would
 have introduced a second prompt/schema configuration and cache namespace
 without being necessary to meet the measured quality or $10/100k constraint.
 Low-confidence cases are instead retained with `needs_review=true` and checked
@@ -215,8 +215,8 @@ finished with **100,099 completed classifications, one empty-text quarantine,
 zero missing IDs, and 24,137 direct exact-text cache reuses**. The final checker
 status is **pass** with no issue counts.
 
-The call log contains 76,231 attempts across enrichment, verification,
-grouping, and memo roles. Saved-rate reconstruction gives **$3.0033 actual API
+The call log contains 76,232 attempts across enrichment, verification,
+grouping, and memo roles. Saved-rate reconstruction gives **$3.0034 actual API
 cost** for the submitted scope; the conservative persistent ledger closed at
 $7.5967 against a $10 hard cap. Enrichment took about 4 hours 15 minutes.
 
@@ -269,7 +269,7 @@ for the final 100,100-row export.
 | Bounded failure handling | test report plus retained failed/succeeded attempts | `evidence/system_tests/latest.json`; recovered production failures remain in `calls.jsonl.gz` |
 | Golden and independent quality checks | labeled evaluation, prediction/error files, verifier report and predictions | Golden/error artifacts plus 50 final verification calls retained |
 | Baseline membership/ranking/claims | `grading/membership.csv`, `grading/ranking.csv`, `grading/claims.csv` | 31,582 membership rows; eight ranked issues; checker-recomputed ranking matches |
-| Cost and runtime | `cost/` with pilot inputs/outputs, dated rates, measured time and offline replay | $3.0033 measured-rate cost; about 4h15 enrichment; `cost/final_usage.csv` |
+| Cost and runtime | `cost/` with pilot inputs/outputs, dated rates, measured time and offline replay | $3.0034 measured-rate cost; about 4h15 enrichment; `cost/final_usage.csv` |
 | Recommendation and traceability | `grading/memo.md`, claims IDs, dashboard with matching final data | Playback recommendation, supporting metrics, and review IDs deployed |
 | Mechanical audit | `check_submission.py`, `self-check.json` | Final status `pass`; zero issue counts |
 
@@ -338,7 +338,7 @@ measured **21.94 seconds end to end**, 174 successful calls, no failures, and
 $0.0073 at the saved rate. `cost/usage.csv` retains both runs rather than
 rewriting the original evidence.
 
-The submitted 100,100-row scope cost $3.0033 at the saved rates. The optional
+The submitted 100,100-row scope cost $3.0034 at the saved rates. The optional
 full-corpus base projection is $42.0892 total ($6.3711/100k rows); the
 conservative projection is $48.0465 ($7.2729/100k). Both are below the declared
 $10/100k limit. See `cost/report.md` for assumptions and cautions.
@@ -385,10 +385,21 @@ https://spotify-insight-haas.eveyygou.chatgpt.site/. It does not require a
 ChatGPT login; an anonymous request to both `/` and `/api/insights` returns HTTP
 200. `chatgpt-auth.ts` is retained starter compatibility code but is not used to
 gate the published page or API.
-Tables `dataset_summary`, `issue_rankings`, and `review_evidence` back both the
-page and the read-only `/api/insights` endpoint. The deployed database contains
-eight final ranked topics plus traceable evidence rows. The deployed page and
-database were refreshed from the passing 100,100-review grading artifacts.
+Tables `dataset_summary`, `issue_rankings`, `claim_records`,
+`processed_reviews`, `review_evidence`, `analysis_outputs`, and `model_calls`
+back both the page and the read-only `/api/insights` endpoint. The deployed D1
+database contains eight final ranked topics, 32 checker-linked claims, a
+deterministic 500-row processed-label/hash sample, three displayed evidence rows,
+and the saved Jev recommendation output and call metadata. The runtime imports
+the versioned `dashboard/data/dashboard-data.json` artifact once per source
+digest and replaces stale rows rather than using `onConflictDoNothing`.
+
+The displayed recommendation was selected by a real Jev `jev-1.13.0` call from
+the final ranking and representative evidence. Its request ID, confidence,
+token usage, input-state hash, and exact returned text are exposed by the API
+and persisted in D1; the UI no longer contains the recommendation as a code
+constant. The deployed page and database were refreshed from the passing
+100,100-review grading artifacts.
 
 ## Repository packaging
 

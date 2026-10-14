@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 const format = new Intl.NumberFormat("en-US");
 
 export default async function Home() {
-  const { summary, ranking, evidence } = await getDashboardData();
+  const { summary, ranking, evidence, recommendation, database } = await getDashboardData();
   const maxScore = Math.max(...ranking.map((row) => row.priorityScore));
   const problemSignals = summary.complaints + summary.cancellations;
   const topIssue = ranking[0];
@@ -104,7 +104,7 @@ export default async function Home() {
       <section className="border-y-2 border-[#121812] bg-[#c7b5ff] px-5 py-16 sm:px-10 lg:px-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.45fr_1fr]">
           <div>
-            <p className="eyebrow">AI-generated recommendation</p>
+            <p className="eyebrow">Jev-generated recommendation</p>
             <span className="mt-8 inline-grid h-16 w-16 place-items-center rounded-full border-2 border-[#121812] bg-[#fffdf6]">
               <ArrowUpRight className="h-8 w-8" />
             </span>
@@ -112,6 +112,9 @@ export default async function Home() {
           <div>
             <h2 className="section-title max-w-4xl">Stabilize core playback before the next product cycle.</h2>
             <p className="mt-6 max-w-3xl text-lg leading-8">{summary.recommendation}</p>
+            <p className="mt-4 max-w-3xl font-mono text-[11px] leading-5 text-[#42385f]">
+              model: {recommendation.model} · confidence: {recommendation.confidence?.toFixed(2)} · request_id: {recommendation.requestId}
+            </p>
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {[
                 `${format.format(topIssue.complaintCount)} complaints`,
@@ -152,7 +155,7 @@ export default async function Home() {
 
       <footer className="border-t-2 border-[#121812] bg-[#fffdf6] px-5 py-10 sm:px-10 lg:px-16">
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 sm:flex-row sm:items-center">
-          <div className="flex items-center gap-3 text-sm font-bold"><ShieldCheck className="h-5 w-5 text-[#0a6b35]" /> IDs, hashes, calls, cost, and checkpoints retained.</div>
+          <div className="flex items-center gap-3 text-sm font-bold"><ShieldCheck className="h-5 w-5 text-[#0a6b35]" /> D1 stores {format.format(database.processedReviewRows)} processed reviews, {database.claimRows} claims, rankings, evidence, and the model output.</div>
           <div className="flex items-center gap-2 text-xs text-[#586158]"><CheckCircle2 className="h-4 w-4" /> Synthetic system-test cases are excluded from business results.</div>
         </div>
       </footer>

@@ -1,0 +1,23 @@
+{
+  "id": "jev-dashboard-recommendation-v1",
+  "text": "Prioritize playback reliability in the next product cycle: reduce crashes and unexpected stops, prevent unwanted track substitution, and make failure-to-start states diagnosable and recoverable.",
+  "model": "jev-1.13.0",
+  "requestId": "6dc207d7-b2aa-4df7-bb0d-5e93bc388a1d",
+  "confidence": 1.0,
+  "labelConfig": "jev-latest+dashboard-recommendation-v1",
+  "inputTokens": 2191,
+  "outputTokens": 205,
+  "runtimeSeconds": 0.168,
+  "stateSha256": "fc41272ab0e3a203b624a37c360f38ec1287cadb21a9a99f6f6af12d4f416681",
+  "createdAt": "2026-10-14T21:05:04Z",
+  "evidenceReviewIds": [
+    "a6eee2f8-ce5b-4686-a1f4-2c90c159bdd2",
+    "b3da207e-888d-40bd-bd5d-11f376f5eeda",
+    "17f29b88-fc31-4e9f-b9ca-44cf26120617",
+    "6ee75863-9bcb-4eab-8237-00ea436c04ba",
+    "c2e874f5-93e6-4a8e-b0fd-6fced57be1d1",
+    "4fcd8963-4953-494a-be7a-cad5dbac6a9d",
+    "b8f44297-e4e3-4bcd-92e2-624d8d34dff8",
+    "9d49cb4f-0ab0-4518-82de-069b44f57e9f"
+  ]
+}

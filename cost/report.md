@@ -7,20 +7,22 @@ Date: 2026-10-13 (America/Los_Angeles)
 The declared submission scope contains **100,100 original rows**: 100,099
 completed classifications and one empty-text quarantine. Exact-text reuse
 served 24,137 completed rows from direct saved originals. The complete call log
-contains 76,231 attempts across all roles: 75,980 enrich, 50 verify, 200 group,
-and one memo call. There were 76,213 successful attempts and 18 retained failed
+contains 76,232 attempts across all roles: 75,980 enrich, 50 verify, 200 group,
+and two memo/recommendation calls. There were 76,214 successful attempts and 18 retained failed
 attempts; every scoped source ID is nevertheless resolved in the final export.
 
-Recorded usage was **71,507,762 input tokens** and **15,012,594 output tokens**.
+Recorded usage was **71,509,953 input tokens** and **15,012,799 output tokens**.
 At the saved rate of $0.000000042 per input token and $0 per output token, the
-measured API cost is **$3.0033 total**, or **$2.9993 per 100,000 input rows**.
+measured API cost is **$3.0034 total**, or **$3.0004 per 100,000 input rows**.
 This is below the course budget of $10 per 100,000 rows. The persistent ledger's
 $7.5967 figure is deliberately conservative reservation accounting, not the
 provider-rate reconstruction.
 
 The main enrichment phase ran from 2026-10-13 23:30:37 PDT to 2026-10-14
 03:45:30 PDT, about **4 hours 15 minutes**. Verification, grouping, ranking,
-memo generation, packaging, and the final checker completed by about 04:04 PDT.
+memo generation, packaging, and the original final checker completed by about 04:04 PDT.
+One additional dashboard recommendation call later added 2,191 input tokens,
+205 output tokens, 0.168 seconds of provider time, and about **$0.00009**.
 The exact role totals are preserved in `final_usage.csv`; `calls.jsonl.gz` in
 the grading package is the record-level source of truth.
 
