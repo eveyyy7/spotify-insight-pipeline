@@ -1,6 +1,9 @@
 """Run and package the complete Assignment 5 pipeline without manual copying."""
 import argparse
+import csv
 import gzip
+import hashlib
+import json
 import shutil
 import subprocess
 import sys
@@ -33,12 +36,38 @@ def package_submission(source_dir, grading_dir):
             shutil.copy2(source_dir / optional, grading_dir / optional)
 
 
+def write_analysis_scope(source, destination, limit):
+    """Preserve the exact original rows in the declared checker scope."""
+    with source.open(newline="", encoding="utf-8") as incoming, destination.open(
+        "w", newline="", encoding="utf-8"
+    ) as outgoing:
+        reader = csv.DictReader(incoming)
+        writer = csv.DictWriter(outgoing, fieldnames=reader.fieldnames, lineterminator="\n")
+        writer.writeheader()
+        for index, row in enumerate(reader):
+            if index >= limit:
+                break
+            writer.writerow(row)
+
+
+def sha256(path):
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input_csv", type=Path)
     parser.add_argument("--state-dir", type=Path, default=ROOT / "grading_full")
     parser.add_argument("--submission-dir", type=Path, default=ROOT / "grading")
     parser.add_argument("--workers", type=int, choices=(1, 2), default=2)
+    parser.add_argument(
+        "--classification-limit", type=int, default=660622,
+        help="Exclusive source-index end; use 100100 for a >100k submission",
+    )
     parser.add_argument("--spend-cap", type=float, default=50.0)
     parser.add_argument("--requests-per-minute", type=int, default=300)
     parser.add_argument("--tokens-per-minute", type=int, default=0)
@@ -53,7 +82,8 @@ def main():
 
     if not args.skip_enrich:
         run(
-            ROOT / "run_pipeline.py", source, "--out", state, "--limit", "660622",
+            ROOT / "run_pipeline.py", source, "--out", state,
+            "--limit", str(args.classification_limit),
             "--workers", str(args.workers), "--spend-cap", str(args.spend_cap),
             "--requests-per-minute", str(args.requests_per_minute),
             "--tokens-per-minute", str(args.tokens_per_minute),
@@ -74,9 +104,15 @@ def main():
 
     run(ROOT / "check_submission.py", "profile", "--full", source,
         "--out", state / "ingestion.json")
+    analysis_scope = state / f"analysis_scope_{args.classification_limit}.csv"
+    write_analysis_scope(source, analysis_scope, args.classification_limit)
+    run_manifest_path = state / "run.json"
+    run_manifest = json.loads(run_manifest_path.read_text(encoding="utf-8"))
+    run_manifest["analysis_sha256"] = sha256(analysis_scope)
+    run_manifest_path.write_text(json.dumps(run_manifest, indent=2) + "\n", encoding="utf-8")
     reference = ROOT / "local-reference.json"
     run(ROOT / "check_submission.py", "reference", "--full", source,
-        "--analysis", source, "--out", reference)
+        "--analysis", analysis_scope, "--out", reference)
     package_submission(state, submission)
     run(ROOT / "check_submission.py", "check", "--reference", reference,
         "--submission", submission, "--out", ROOT / "self-check.json")

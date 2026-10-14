@@ -1,6 +1,9 @@
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+*.p12
 
 # Credentials, local runtimes, and mutable state
 .venv/
@@ -12,9 +15,12 @@ __pycache__/
 
 # Raw/large source data and local checker references
 spotify_reviews_18months.csv
+spotify-insight-dataset.zip
 local-reference.json
+local-reference-*.json
 self-check.json
 self-check*.json
+grading-self-check/
 .DS_Store
 
 # Resumable work state and generated deployment internals
@@ -27,6 +33,3 @@ cache*.json
 .wrangler/
 .sites-runtime/
 node_modules/
-
-# Accidental shell/editor artifact from early development
-touch run_grouping.py

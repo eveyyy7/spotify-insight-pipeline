@@ -2,6 +2,28 @@
 
 Date: 2026-10-13 (America/Los_Angeles)
 
+## Final 100,100-review run
+
+The declared submission scope contains **100,100 original rows**: 100,099
+completed classifications and one empty-text quarantine. Exact-text reuse
+served 24,137 completed rows from direct saved originals. The complete call log
+contains 76,231 attempts across all roles: 75,980 enrich, 50 verify, 200 group,
+and one memo call. There were 76,213 successful attempts and 18 retained failed
+attempts; every scoped source ID is nevertheless resolved in the final export.
+
+Recorded usage was **71,507,762 input tokens** and **15,012,594 output tokens**.
+At the saved rate of $0.000000042 per input token and $0 per output token, the
+measured API cost is **$3.0033 total**, or **$2.9993 per 100,000 input rows**.
+This is below the course budget of $10 per 100,000 rows. The persistent ledger's
+$7.5967 figure is deliberately conservative reservation accounting, not the
+provider-rate reconstruction.
+
+The main enrichment phase ran from 2026-10-13 23:30:37 PDT to 2026-10-14
+03:45:30 PDT, about **4 hours 15 minutes**. Verification, grouping, ranking,
+memo generation, packaging, and the final checker completed by about 04:04 PDT.
+The exact role totals are preserved in `final_usage.csv`; `calls.jsonl.gz` in
+the grading package is the record-level source of truth.
+
 ## Measured 100-review pilot
 
 The fixed 100-row input produced 100 completed and 0 failed records. The cold
@@ -39,8 +61,9 @@ scenario with 5% additional retry work, 30% verification, and 60% grouping is
 The final baseline membership/ranking can be computed deterministically from
 saved enriched topics, avoiding unnecessary grouping calls; the estimates above
 retain the measured pilot grouping rate so they do not understate the originally
-tested architecture. The final report must reconcile estimates with actual
-full-run usage after completion.
+tested architecture. The actual submitted-scope usage is reconciled above; the
+full-corpus figures remain an optional scale projection rather than a claim of
+660,622-row execution.
 
 ## Throughput and concurrency
 

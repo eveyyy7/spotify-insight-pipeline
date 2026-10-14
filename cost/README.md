@@ -25,6 +25,8 @@ python3 cost/calculator.py
 - `rates.csv`: editable dated rates in per-token units. Output tokens were
   billed at zero in the measured Jev configuration; changing either rate
   changes the replayed subtotal without changing recorded usage.
+- `final_usage.csv`: actual role-level attempts, outcomes, tokens, summed
+  request time, and wall-clock measurements for the submitted 100,100-row run.
 - `report.md`: interpretation, controls, assumptions, and scale estimate.
 
 ## Cold versus warm

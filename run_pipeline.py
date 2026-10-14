@@ -243,15 +243,21 @@ def save_record(db, job, values, source_id=None):
     )
 
 
-def claim(db, worker, reservation):
+def claim(db, worker, reservation, start_index=0, end_index=None):
     while True:
         db.execute("BEGIN IMMEDIATE")
         job = db.execute("""SELECT q.* FROM work_queue q WHERE q.status='pending'
+          AND q.source_index >= ? AND (? IS NULL OR q.source_index < ?)
           AND NOT EXISTS(SELECT 1 FROM work_queue x
                          WHERE x.cache_key=q.cache_key AND x.status='in_flight')
-          ORDER BY q.source_index LIMIT 1""").fetchone()
+          ORDER BY q.source_index LIMIT 1""",
+          (start_index, end_index, end_index)).fetchone()
         if job is None:
-            pending = db.execute("SELECT COUNT(*) FROM work_queue WHERE status='pending'").fetchone()[0]
+            pending = db.execute(
+                """SELECT COUNT(*) FROM work_queue WHERE status='pending'
+                   AND source_index >= ? AND (? IS NULL OR source_index < ?)""",
+                (start_index, end_index, end_index),
+            ).fetchone()[0]
             db.commit()
             return ("wait" if pending else "done"), None
         cached = db.execute("SELECT * FROM result_cache WHERE cache_key=?", (job["cache_key"],)).fetchone()
@@ -381,7 +387,9 @@ def worker_loop(db_path, args, phase, limiter, logger, stats, stop, number):
     db = connect(db_path)
     try:
         while not stop.is_set():
-            state, job = claim(db, worker, args.worst_case_cost)
+            state, job = claim(
+                db, worker, args.worst_case_cost, args.start_index, args.limit
+            )
             if state == "done": return
             if state == "budget": stop.set(); return
             if state == "wait": time.sleep(0.05); continue
@@ -399,9 +407,14 @@ def worker_loop(db_path, args, phase, limiter, logger, stats, stop, number):
         db.close()
 
 
-def export(db, out_dir):
+def export(db, out_dir, start_index=0, end_index=None):
+    scope_sql = "source_index >= ? AND (? IS NULL OR source_index < ?)"
+    scope_args = (start_index, end_index, end_index)
     with (out_dir / "records.jsonl").open("w", encoding="utf-8") as handle:
-        for row in db.execute("SELECT * FROM records ORDER BY source_index"):
+        for row in db.execute(
+            f"SELECT * FROM records WHERE {scope_sql} ORDER BY source_index",
+            scope_args,
+        ):
             if row["status"] == "completed":
                 item = {"review_id": row["review_id"], "source_sha256": row["source_sha256"],
                         "status": "completed", "topic": row["topic"], "intent": row["intent"],
@@ -413,7 +426,11 @@ def export(db, out_dir):
                 item = {"review_id": row["review_id"], "source_sha256": row["source_sha256"],
                         "status": row["status"], "reason": row["reason"]}
             handle.write(json.dumps(item, ensure_ascii=False) + "\n")
-    ids = [x[0] for x in db.execute("SELECT review_id FROM records WHERE status='completed' ORDER BY source_index")]
+    ids = [x[0] for x in db.execute(
+        f"""SELECT review_id FROM records WHERE status='completed' AND {scope_sql}
+            ORDER BY source_index""",
+        scope_args,
+    )]
     (out_dir / "checkpoint_current.json").write_text(
         json.dumps({"completed_ids": ids, "count": len(ids), "timestamp": now()}, indent=2), encoding="utf-8")
 
@@ -498,10 +515,14 @@ def main():
                    for i in range(args.workers)]
         for future in futures: future.result()
     db = connect(db_path)
-    export(db, out)
+    export(db, out, args.start_index, args.limit)
     counts = {x["status"]: x["n"] for x in db.execute("SELECT status,COUNT(*) n FROM work_queue GROUP BY status")}
     ledger = dict(db.execute("SELECT * FROM spend_ledger WHERE singleton=1").fetchone())
-    total = db.execute("SELECT COUNT(*) FROM records").fetchone()[0]
+    total = db.execute(
+        """SELECT COUNT(*) FROM records WHERE source_index >= ?
+           AND (? IS NULL OR source_index < ?)""",
+        (args.start_index, args.limit, args.limit),
+    ).fetchone()[0]
     if before_path.exists():
         before_count = len(json.loads(before_path.read_text(encoding="utf-8"))["completed_ids"])
         if total > before_count:

@@ -6,7 +6,7 @@
 2. A convenient starting design is SQL/code for preparation and Jev for fixed labels; choose the tools that fit your pipeline. Build the required calculator in `COST_CALCULATOR.md`; measure a real cold/warm run on `cost_100.csv` before scaling to `checkpoint_500.csv`. Save outputs and an offline replay command so graders need no API key.
 3. Hand-label `golden_50_to_label.csv`. These 50 reviews are separate from the development checkpoints. Keep their human answer labels out of prompts; their original texts are still part of the full final run.
 4. In Class 7, ingest and profile `spotify_reviews_18months.csv` (660,622 rows; 97,400,616 bytes), then classify all 660,609 nonempty texts and explicitly quarantine the 13 empty texts. Use `analysis_10000.csv` as a development and budget checkpoint first.
-5. Read `GRADING_CONTRACT.md` for common labels, bounded tasks, saved outputs, and the required grading export. Run `check_submission.py` to check your evidence with no model calls.
+5. Read `GRADING_CONTRACT.md` for common labels, bounded tasks, saved outputs, and the required grading export. Use the checker instructions below; it makes no model calls.
 6. Follow the full assignment brief on the course site: `assignment5.html`.
 
 The CSV size is 97.4 decimal MB (92.9 MiB). The ZIP download is smaller. Review text may contain embedded line breaks; physical line counts are not row counts.
@@ -113,23 +113,61 @@ Full CSV SHA-256:
 1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6
 ```
 
+### Checker and partial-scope submissions
+
+The checker has two inputs with different jobs: `--full` is always the complete
+source CSV and supplies the full-corpus ingestion profile; `--analysis` defines
+the exact set of IDs the grading export is expected to contain. For a complete
+submission, point both at the full CSV. For a partial checkpoint, create a
+scope CSV containing the selected original rows (unchanged, with the original
+six columns), and use that file as `--analysis`. The scope file must be a subset
+of the full source and include its header. Do not describe the current scoped
+result as full-corpus coverage. Under the latest course guidance, the submitted
+analysis must exceed 100,000 original rows; this project uses the first 100,100
+source rows as its declared grading scope. The 660,622-row corpus remains the
+full-source ingestion reference and an optional extended run.
+
+Example, run from the project root after placing the full source CSV at the
+indicated path and preparing `grading/`:
+
+```sh
+python3 check_submission.py profile --full /path/to/spotify_reviews_18months.csv --out grading/ingestion.json
+python3 check_submission.py reference --full /path/to/spotify_reviews_18months.csv --analysis /path/to/scope.csv --out local-reference.json
+python3 check_submission.py check --reference local-reference.json --submission grading --out self-check.json
+```
+
+For a full submission, set `--analysis` to the full source CSV. Keep the local
+reference and self-check report outside `grading/`; they are audit helpers, not
+grading-export files. The checker compares the scope's rows and IDs with the
+full source, while still checking that `ingestion.json` describes the entire
+source. A scoped partial run can therefore be checked without suggesting that
+unprocessed IDs are complete. The output status and coverage are evidence
+summaries, not a course grade. See [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md)
+for the final packaging and dashboard refresh steps.
+
 ## Submission status
 
-The resumable full-run state is in `grading_full/pipeline_state.sqlite`. At the
-latest safe checkpoint it retains 490 completed original IDs backed by 428
+The resumable state recorded in this checkout's `grading_full/pipeline_state.sqlite`
+began from a historical checkpoint of 490 completed original IDs backed by 428
 distinct exact-text results and 429 enrichment attempts (428 succeeded, one
-failed attempt later recovered). No valid saved record is discarded or
-reclassified on resume. The required full-corpus call is prepared but paused
-until the operator explicitly authorizes sending review text to the external
-TypeSafe/Jev API.
+failed attempt later recovered). The authorized 100,100-row TypeSafe/Jev run
+resumed that state without discarding or reclassifying valid saved records. It
+finished with **100,099 completed classifications, one empty-text quarantine,
+zero missing IDs, and 24,137 direct exact-text cache reuses**. The final checker
+status is **pass** with no issue counts.
+
+The call log contains 76,231 attempts across enrichment, verification,
+grouping, and memo roles. Saved-rate reconstruction gives **$3.0033 actual API
+cost** for the submitted scope; the conservative persistent ledger closed at
+$7.5967 against a $10 hard cap. Enrichment took about 4 hours 15 minutes.
 
 The private deployed dashboard is:
 
 <https://spotify-insight-haas.eveyygou.chatgpt.site>
 
-It currently shows the completed 10,000-review development analysis and says so
-prominently. After the full run, its seed data is refreshed from final saved
-artifacts before submission.
+It now shows the final 100,100-review scope, final ranking and recommendation,
+and two traceable source-review examples. Its D1-backed API uses the same final
+saved metrics.
 
 ## Architecture
 
@@ -159,17 +197,22 @@ the completed original whose model call is logged; aliases never form chains.
 
 ## Rubric mapping
 
-| Requirement | Evidence |
-|---|---|
-| Full accounting, IDs, hashes, 13 empty quarantines | `run_pipeline.py`, SQLite state, final `grading/records.jsonl.gz`, `grading/ingestion.json` |
-| Persistent resume and no repeated paid work | `checkpoint_before.json`, `checkpoint_after.json`, `calls.jsonl.gz`, direct `cache_source_id` |
-| Two-worker queue and spend safety | `test_parallel_pipeline.py`, timestamped `grading_parallel_benchmark_*`, SQLite `spend_ledger` |
-| Bounded failure handling | `test_system_pipeline.py`, `evidence/system_tests/latest.json` |
-| Golden and independent quality checks | `golden50_eval_v1.txt`, `golden50_errors.csv`, `verifier_50_report.txt`, verifier CSVs |
-| Baseline membership/ranking/claims | `build_ranking.py`, final `membership.csv`, `ranking.csv`, `claims.csv` |
-| Cost and runtime | `cost/README.md`, `cost/report.md`, offline `cost/calculator.py`, saved usage/rates/calls |
-| Recommendation and traceability | final `memo.md`; dashboard ranking, review IDs, quotes, D1-backed `/api/insights` |
-| Mechanical audit | `check_submission.py`, final `self-check.json` |
+The latest course guidance accepts a declared analysis scope above 100,000
+original rows. Evidence listed below is expected for that submitted scope;
+development checkpoints demonstrate recovery behavior but are not substitutes
+for the final 100,100-row export.
+
+| Requirement | Evidence to include in final package | Current project evidence / limit |
+|---|---|---|
+| Full accounting and hashes | `grading/run.json`, `grading/ingestion.json`, `grading/records.jsonl.gz` | 100,100/100,100 scoped IDs accounted for; full-source ingestion still records all 13 corpus empties |
+| Persistent resume and no repeated paid work | `grading/checkpoint_before.json`, `grading/checkpoint_after.json`, `grading/calls.jsonl.gz`, direct `cache_source_id` | 490-ID starting checkpoint and 100,099-ID final checkpoint retained |
+| Two-worker queue and spend safety | benchmark report, implementation, saved ledger/call evidence | `evidence/parallel_benchmark.json`; 1.83× mock-provider speedup and no reservation leak |
+| Bounded failure handling | test report plus retained failed/succeeded attempts | `evidence/system_tests/latest.json`; recovered production failures remain in `calls.jsonl.gz` |
+| Golden and independent quality checks | labeled evaluation, prediction/error files, verifier report and predictions | Golden/error artifacts plus 50 final verification calls retained |
+| Baseline membership/ranking/claims | `grading/membership.csv`, `grading/ranking.csv`, `grading/claims.csv` | 31,582 membership rows; eight ranked issues; checker-recomputed ranking matches |
+| Cost and runtime | `cost/` with pilot inputs/outputs, dated rates, measured time and offline replay | $3.0033 measured-rate cost; about 4h15 enrichment; `cost/final_usage.csv` |
+| Recommendation and traceability | `grading/memo.md`, claims IDs, dashboard with matching final data | Playback recommendation, supporting metrics, and review IDs deployed |
+| Mechanical audit | `check_submission.py`, `self-check.json` | Final status `pass`; zero issue counts |
 
 ## Parallel and spend evidence
 
@@ -232,7 +275,8 @@ cold orchestrator did not persist one trustworthy end-to-end stopwatch value;
 the report preserves 25.602 seconds of summed request durations and marks cold
 wall time unknown rather than inventing it.
 
-The measured-rate base projection is $42.0892 total ($6.3711/100k rows); the
+The submitted 100,100-row scope cost $3.0033 at the saved rates. The optional
+full-corpus base projection is $42.0892 total ($6.3711/100k rows); the
 conservative projection is $48.0465 ($7.2729/100k). Both are below the declared
 $10/100k limit. See `cost/report.md` for assumptions and cautions.
 
@@ -251,7 +295,8 @@ Then run the full orchestrator:
 ```sh
 python run_full_assignment.py spotify_reviews_18months.csv \
   --state-dir grading_full --submission-dir grading \
-  --workers 2 --spend-cap 50 --requests-per-minute 300
+  --classification-limit 100100 --workers 2 \
+  --spend-cap 10 --requests-per-minute 300
 ```
 
 The script resumes enrichment, runs a fixed 50-case independent verification
@@ -266,7 +311,7 @@ Manual zero-API audit:
 
 ```sh
 python check_submission.py profile --full spotify_reviews_18months.csv --out grading/ingestion.json
-python check_submission.py reference --full spotify_reviews_18months.csv --analysis spotify_reviews_18months.csv --out local-reference.json
+python check_submission.py reference --full spotify_reviews_18months.csv --analysis grading_full/analysis_scope_100100.csv --out local-reference.json
 python check_submission.py check --reference local-reference.json --submission grading --out self-check.json
 ```
 
@@ -275,8 +320,8 @@ python check_submission.py check --reference local-reference.json --submission g
 The dashboard is a private Vinext/Cloudflare Worker Site with a D1 database.
 Tables `dataset_summary`, `issue_rankings`, and `review_evidence` back both the
 page and the read-only `/api/insights` endpoint. The deployed database contains
-eight ranked themes plus traceable evidence rows. Final corpus results replace
-the clearly labeled development snapshot after the full run.
+eight final ranked topics plus traceable evidence rows. The deployed page and
+database were refreshed from the passing 100,100-review grading artifacts.
 
 ## Repository packaging
 
@@ -301,7 +346,7 @@ files and must not show the raw CSV.
 - Review text can be multilingual, sarcastic, underspecified, or adversarial.
 - Exact-text reuse is safe only under the identical model/prompt/schema config;
   semantic similarity is not reused.
-- The development dashboard is not the final full-corpus result until its scope
-  label changes and the final checker passes.
+- The submitted 100,100-review analysis is an approved scope, not a claim that
+  all 660,622 source reviews were classified.
 - Model execution, provider billing, and semantic correctness still require
   human review; the mechanical checker validates consistency, not truth.
