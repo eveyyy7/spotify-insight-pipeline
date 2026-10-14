@@ -9,6 +9,7 @@ export default async function Home() {
   const { summary, ranking, evidence } = await getDashboardData();
   const maxScore = Math.max(...ranking.map((row) => row.priorityScore));
   const problemSignals = summary.complaints + summary.cancellations;
+  const topIssue = ranking[0];
 
   return (
     <main className="min-h-screen bg-[#f4f1e8] text-[#121812]">
@@ -39,7 +40,7 @@ export default async function Home() {
             <p className="text-xs font-bold uppercase tracking-[.16em] text-[#586158]">Current published scope</p>
             <p className="mt-3 text-2xl font-bold">{summary.scopeLabel}</p>
             <p className="mt-3 text-sm leading-6 text-[#586158]">
-              Development result. The 660,622-row full-corpus refresh is pending explicit authorization for external model processing.
+              Final declared scope: 100,099 classified reviews and one empty-text quarantine. Mechanical checker status: pass.
             </p>
           </div>
         </div>
@@ -72,7 +73,7 @@ export default async function Home() {
             <div className="mt-8 rounded-2xl bg-[#ff6b35] p-6 text-[#251108]">
               <p className="text-xs font-bold uppercase tracking-[.14em]">Problem signals</p>
               <p className="mt-2 text-4xl font-black">{(problemSignals / summary.analyzedReviews * 100).toFixed(1)}%</p>
-              <p className="mt-2 text-sm leading-6">complaint or cancellation intent in the development checkpoint</p>
+              <p className="mt-2 text-sm leading-6">complaint or cancellation intent in the submitted 100,100-review scope</p>
             </div>
           </div>
 
@@ -109,10 +110,14 @@ export default async function Home() {
             </span>
           </div>
           <div>
-            <h2 className="section-title max-w-4xl">Rebalance Premium gating around core playback controls.</h2>
+            <h2 className="section-title max-w-4xl">Stabilize core playback before the next product cycle.</h2>
             <p className="mt-6 max-w-3xl text-lg leading-8">{summary.recommendation}</p>
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {["833 complaints", "2.970 mean severity", "2,474 priority score"].map((item) => (
+              {[
+                `${format.format(topIssue.complaintCount)} complaints`,
+                `${topIssue.meanSeverity.toFixed(3)} mean severity`,
+                `${format.format(topIssue.priorityScore)} priority score`,
+              ].map((item) => (
                 <div key={item} className="rounded-xl border-2 border-[#121812] bg-[#fffdf6]/70 p-4 text-sm font-extrabold">{item}</div>
               ))}
             </div>

@@ -12,7 +12,7 @@ export async function GET() {
     evidence: data.evidence,
     provenance: {
       rankingFormula: "priority_score = severity_sum = complaint_count × mean_severity",
-      source: "saved Assignment 5 development artifacts",
+      source: "saved Assignment 5 final 100,100-review grading artifacts",
       syntheticCasesExcluded: true,
     },
   });
