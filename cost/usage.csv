@@ -5,3 +5,8 @@ cold_100,cold,group,100,53,53,0,63918,21020,7.77,,53
 cold_100,cold,memo,100,1,1,0,1165,92,0.157,,1
 cold_100,cold,end_to_end,100,178,178,0,177874,45148,25.602,,178
 warm_100,warm,end_to_end,100,0,0,0,0,0,0,0.79,0
+cold_recheck_100,cold_recheck,enrich,100,100,100,0,93659,19662,11.456,,100
+cold_recheck_100,cold_recheck,verify,100,20,20,0,15973,3647,2.477,,20
+cold_recheck_100,cold_recheck,group,100,53,53,0,63918,21016,6.751,,53
+cold_recheck_100,cold_recheck,memo,100,1,1,0,1279,102,0.111,,1
+cold_recheck_100,cold_recheck,end_to_end,100,174,174,0,174829,44427,20.795,21.94,174

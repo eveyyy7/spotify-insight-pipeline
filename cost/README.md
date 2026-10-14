@@ -19,9 +19,11 @@ python3 cost/calculator.py
   verify, 53 group, and one memo call. Each row preserves role, exact model,
   configuration, usage, and request duration.
 - `usage.csv`: independently summarized units and timings. The original cold
-  orchestrator did not save one trustworthy end-to-end stopwatch value, so
-  that cell remains blank rather than being invented. Summed provider request
-  time is 25.602 seconds. The saved warm replay took 0.79 seconds.
+  orchestrator did not save one trustworthy end-to-end stopwatch value, so its
+  original cell remains blank. A fresh empty-state reproducibility run is saved
+  as `cold_recheck_100`: 174 successful calls, 21.94 seconds end to end, and
+  $0.0073 at the saved rate. The saved warm replay took 0.79 seconds with zero
+  incremental API calls.
 - `rates.csv`: editable dated rates in per-token units. Output tokens were
   billed at zero in the measured Jev configuration; changing either rate
   changes the replayed subtotal without changing recorded usage.
@@ -35,7 +37,9 @@ The cold run began with an empty result cache and completed 100/100 inputs with
 zero failed final records. The warm replay used the same input and unchanged
 label configuration; it returned all 100 records from saved state with zero
 new enrichment calls and $0 incremental API spend. Downstream pilot artifacts
-were also reused during the saved warm replay.
+were also reused during the saved warm replay. The October 14 cold recheck also
+proved the fresh-run packaging path after an empty `checkpoint_before.json`
+fix: before count 0, after count 100, complete grading export produced.
 
 ## Safety controls
 

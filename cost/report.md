@@ -40,6 +40,14 @@ trustworthy stopwatch measurement. The warm replay was measured end to end at
 0.79 seconds, with 100 cache hits, zero new enrichment calls, and **$0.0000**
 incremental API spend.
 
+On 2026-10-14, the same fixed 100-row input was rerun from a genuinely empty
+state with one worker to close the wall-clock evidence gap. The complete
+enrich → verify → group → rank → memo → package → check workflow took **21.94
+seconds**, made 174 successful calls with no failed attempts, used 174,829
+input and 44,427 output tokens, and cost **$0.0073** at the saved rate. Its
+checkpoint counts were 0 before and 100 after. The separate saved warm replay
+remains 0.79 seconds and zero incremental calls.
+
 Configuration: Jev `jev-latest` (provider responses recorded model version
 `jev-1.13.0`), prompt/schema v1, one review per provider request, one worker for
 the measured cold pilot, no reasoning tier exposed by the provider, and one

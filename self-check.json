@@ -1,0 +1,118 @@
+{
+  "audit_script_sha256": "d60bd66d84922d934c65b3d42b2c7d36cc738e8c75e2d6f2b2f58bca3141c26d",
+  "audit_version": "a5-audit-v1",
+  "automatic_grade": null,
+  "calculated_ranking": [
+    {
+      "complaint_count": 8683,
+      "issue_id": "topic:playback",
+      "mean_severity": "3.568467",
+      "priority_score": 30985,
+      "rank": 1,
+      "severity_sum": 30985
+    },
+    {
+      "complaint_count": 10514,
+      "issue_id": "topic:usability",
+      "mean_severity": "2.694217",
+      "priority_score": 28327,
+      "rank": 2,
+      "severity_sum": 28327
+    },
+    {
+      "complaint_count": 3132,
+      "issue_id": "topic:catalog",
+      "mean_severity": "3.069923",
+      "priority_score": 9615,
+      "rank": 3,
+      "severity_sum": 9615
+    },
+    {
+      "complaint_count": 2565,
+      "issue_id": "topic:billing",
+      "mean_severity": "3.078363",
+      "priority_score": 7896,
+      "rank": 4,
+      "severity_sum": 7896
+    },
+    {
+      "complaint_count": 3344,
+      "issue_id": "topic:other",
+      "mean_severity": "2.197368",
+      "priority_score": 7348,
+      "rank": 5,
+      "severity_sum": 7348
+    },
+    {
+      "complaint_count": 1731,
+      "issue_id": "topic:access",
+      "mean_severity": "3.931254",
+      "priority_score": 6805,
+      "rank": 6,
+      "severity_sum": 6805
+    },
+    {
+      "complaint_count": 1515,
+      "issue_id": "topic:downloads",
+      "mean_severity": "3.622442",
+      "priority_score": 5488,
+      "rank": 7,
+      "severity_sum": 5488
+    },
+    {
+      "complaint_count": 98,
+      "issue_id": "topic:support",
+      "mean_severity": "2.897959",
+      "priority_score": 284,
+      "rank": 8,
+      "severity_sum": 284
+    }
+  ],
+  "coverage": {
+    "accounted_fraction": 1.0,
+    "duplicate_ids": 0,
+    "expected": 100100,
+    "invalid_or_unresolved": 0,
+    "labelable": 100099,
+    "labelable_completion_fraction": 1.0,
+    "missing": 0,
+    "quarantined": 1,
+    "received_lines": 100100,
+    "unique_expected_ids": 100100,
+    "valid_cache_reuses": 24137,
+    "valid_completed": 100099,
+    "valid_completion_fraction": 0.99999
+  },
+  "examples": [],
+  "hash_convention": "Reference/benchmark: canonical UTF-8 JSON via canonical(); input files and audit script: exact bytes.",
+  "input_files_sha256": {
+    "calls.jsonl.gz": "890346b87ddfe5d50add7b4393a8b130ad194a6208c638314fd04decc2744a0b",
+    "checkpoint_after.json": "70a56926a82fb9c8500b7cbb3444451c03b768bac66a32b695a9f6038067e83d",
+    "checkpoint_before.json": "68fc0677634fdf575bbc3b35f54f2afc91ad101c398d5310c2aa08daa0569be2",
+    "claims.csv": "02c5261ad225eb93a7a10c12ee277799760e576c4456984633d34fe571dd41cf",
+    "grouping_results.jsonl": "d5d28fe59d7779183d36804c2c6c3399e95dc0f4c00ae4cbd6785d044fa8d228",
+    "ingestion.json": "5512dd793b0bde3bd51f28b20b440108f3c9bab31233819bea5f32ce19482153",
+    "membership.csv": "f821ec9a34ceb2209df691905313573fa272f763191a76f525d268587bd8276a",
+    "ranking.csv": "0a1a0d0d0dd9c9976a8c7c66f9b612ea5e89e87df5c01f6a06397e2f9745f307",
+    "records.jsonl.gz": "48cbdfa858d003913dcab6b836be4074d9d1b6b90188e4f0d46153aad0eb4a2f",
+    "run.json": "40cfce04f26bc0319d093089a9de9e0d13aebbcc81bc9be44f62b03267a52267",
+    "verification_results.jsonl": "5dbe3272cb43ee6d7925686b9d44190c444e8f9ff7f0784568fc603ce63c3f4c"
+  },
+  "issue_counts": {},
+  "limits": [
+    "Artifacts do not prove actual model execution, authorship, cost, or independent verification.",
+    "Exact quote membership does not prove that the quote supports the label.",
+    "Claims export checks numbers; a person must check that all memo claims are represented.",
+    "Benchmark agreement is diagnostic; final 4/3/3 grades require rubric review."
+  ],
+  "quality": {
+    "official": false,
+    "status": "not_supplied"
+  },
+  "reference_sha256": "7d8acef63429e945f59816338f4f5dc8ce78da449efd6f4bfd6a6365e0d42ec9",
+  "reported_calls": 76231,
+  "reported_input_tokens": 71507762,
+  "reported_output_tokens": 15012594,
+  "status": "pass",
+  "working_coverage_point_candidate": 1.0
+}

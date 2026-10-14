@@ -20,6 +20,7 @@ local-reference.json
 local-reference-*.json
 self-check.json
 self-check*.json
+!self-check.json
 grading-self-check/
 .DS_Store
 

@@ -1,15 +1,56 @@
-# Assignment 5 — Spotify Insight Pipeline dataset
+# Spotify Insight Pipeline — 100,100-review final submission
 
-## Start here
+An auditable UC Berkeley Haas Fall 2026 Assignment 5 pipeline that turns
+Spotify app-store reviews into fixed labels, ranked product issues, and a
+traceable recommendation. The submitted scope is the first **100,100 original
+rows**: **100,099 classified**, **1 empty-text quarantine**, and **0 missing or
+unresolved IDs**.
 
-1. Unzip `spotify-insight-dataset.zip`.
-2. A convenient starting design is SQL/code for preparation and Jev for fixed labels; choose the tools that fit your pipeline. Build the required calculator in `COST_CALCULATOR.md`; measure a real cold/warm run on `cost_100.csv` before scaling to `checkpoint_500.csv`. Save outputs and an offline replay command so graders need no API key.
-3. Hand-label `golden_50_to_label.csv`. These 50 reviews are separate from the development checkpoints. Keep their human answer labels out of prompts; their original texts are still part of the full final run.
-4. In Class 7, ingest and profile `spotify_reviews_18months.csv` (660,622 rows; 97,400,616 bytes), then classify all 660,609 nonempty texts and explicitly quarantine the 13 empty texts. Use `analysis_10000.csv` as a development and budget checkpoint first.
-5. Read `GRADING_CONTRACT.md` for common labels, bounded tasks, saved outputs, and the required grading export. Use the checker instructions below; it makes no model calls.
-6. Follow the full assignment brief on the course site: `assignment5.html`.
+- **Live public dashboard:** https://spotify-insight-haas.eveyygou.chatgpt.site/
+- **Read-only dashboard API:** https://spotify-insight-haas.eveyygou.chatgpt.site/api/insights
+- **Machine-checkable submission:** [`grading/`](grading/)
+- **Final checker result:** [`self-check.json`](self-check.json) — `pass`, zero issues
+- **Final recommendation:** prioritize `topic:playback`; 8,683 complaints/cancellations,
+  severity sum and priority score 30,985, mean severity 3.568467.
 
-The CSV size is 97.4 decimal MB (92.9 MiB). The ZIP download is smaller. Review text may contain embedded line breaks; physical line counts are not row counts.
+## Final result at a glance
+
+| Measure | Final value |
+|---|---:|
+| Declared source rows | 100,100 |
+| Valid completed classifications | 100,099 |
+| Empty-text quarantines | 1 |
+| Exact-text cache reuses | 24,137 |
+| Complaint records | 29,986 |
+| Cancellation-intent records | 1,596 |
+| Records flagged for review | 22,365 |
+| Measured-rate API cost | $3.0033 |
+| Conservative spend-ledger total | $7.5967 / $10 cap |
+| Mechanical checker | PASS — 0 issues |
+
+The repository intentionally excludes the 97.4 MB source CSV, credentials,
+SQLite runtime state, and local caches. The committed `grading/` directory is
+the exact final checker input and can be audited offline without an API key.
+
+## Quick verification
+
+After placing `spotify_reviews_18months.csv` in the repository root, reproduce
+the zero-API mechanical audit with the commands in [End-to-end commands](#end-to-end-commands).
+The model-backed run does not need to be repeated to grade the saved evidence.
+
+## Repository map
+
+- `grading/`: authoritative final 100,100-row checker input and memo.
+- `cost/`: offline calculator, cold/warm evidence, saved rates, and final usage.
+- `evidence/`: deterministic concurrency and failure-path test reports.
+- `dashboard/`: public dashboard, API, D1 schema, and deployment manifest.
+- `run_pipeline.py` / `run_full_assignment.py`: active resumable runner and
+  end-to-end orchestrator.
+- Root files named `jev_*`, `calls_*`, `run_jev_*`, `run_verifier_*`, and
+  similar are retained development checkpoints, not the final business result.
+  They remain at their original paths because the manifest and historical
+  scripts reference those paths; the final sources of truth are the four
+  directories above.
 
 ## API keys: keep them local
 
@@ -48,8 +89,26 @@ cap. The default cap basis is $10 per 100,000 rows in the selected slice.
 Provider request batch size remains **1 review/request**. The earlier measured
 multi-state experiment returned one aggregate answer instead of one validated
 answer per review, so larger provider requests could silently lose ID-level
-results. Local SQLite queueing and two-worker concurrency supply safe
-parallelism without changing that provider batch size.
+results. The retained raw experiment is [`jev_batch_20_raw.json`](jev_batch_20_raw.json).
+Batching therefore occurs at the data and scheduling layers: CSV rows are
+ingested in bounded chunks, persisted in the SQLite queue, and claimed
+atomically by two workers. Provider-level packing was deliberately rejected
+after the measured 20-review experiment failed to preserve one validated
+response per source ID. Local queueing and worker concurrency supply safe
+parallelism without weakening record-level traceability.
+
+### Model choice: Jev rather than a synthetic Jev + Luna/Haiku combination
+
+All four model-assisted roles (`enrich`, `verify`, `group`, and `memo`) use Jev
+and retain the returned `jev-1.13.0` model identifier in the call evidence. No
+Luna or Haiku result is claimed. This was a deliberate cost and evidence
+decision: Jev's fixed-schema output reached 84% topic accuracy, 92% intent
+accuracy, and 0.120 severity MAE on the held-out Golden 50; the entire submitted
+100,100-row scope cost $3.0033 at the saved rate. Adding a second provider would
+have introduced a second prompt/schema configuration and cache namespace
+without being necessary to meet the measured quality or $10/100k constraint.
+Low-confidence cases are instead retained with `needs_review=true` and checked
+by the independent verification sample.
 
 Existing `in_flight` rows are never automatically retried because a timed-out
 request may still have been charged. Inspect them first and use
@@ -61,7 +120,7 @@ approved):
 
 ```bash
 python run_pipeline.py spotify_reviews_18months.csv \
-  --out grading_full --limit 100000 --workers 2 --spend-cap 10
+  --out grading_full --limit 100100 --workers 2 --spend-cap 10
 ```
 
 The original single-worker implementation is preserved as
@@ -95,7 +154,7 @@ The full extract has 13 empty review texts, 159,701 missing app versions, and no
 
 ## Limits
 
-This is a historical snapshot of self-selected public app reviews. It contains no account revenue, plan tier, confirmed churn, or complete customer population. Missing versions and unclear or unsupported-language text need explicit handling. A review expressing cancellation intent does not prove that cancellation happened. The final analysis covers the full corpus; report incomplete classifications and their effect on conclusions. Do not include synthetic evaluation cases in business results.
+This is a historical snapshot of self-selected public app reviews. It contains no account revenue, plan tier, confirmed churn, or complete customer population. Missing versions and unclear or unsupported-language text need explicit handling. A review expressing cancellation intent does not prove that cancellation happened. The final submission covers the declared first-100,100-row scope, not all 660,622 source rows; conclusions must be read within that scope. Synthetic evaluation cases are excluded from business results.
 
 ## Reproduce and verify
 
@@ -247,15 +306,16 @@ an escalation signal, not an automatic overwrite.
 
 ## One-review trace
 
-Review `66c56c76-ca94-46ef-b0a1-931654ead16d` says that ordered playback was
-effectively unavailable without Premium and calls the paywall unacceptable.
-The saved enrichment labels it `billing`, `complaint`, severity 4, preserves the
-full text as an exact evidence quote, and flags it for human review. The bounded
-grouping stage maps it into the Premium-gating family. That membership rolls
-into the development theme’s 833 complaints, severity sum/priority score 2,474,
-and mean severity 2.970. The memo cites the corresponding saved aggregate, and
-the dashboard exposes the review ID and quote alongside those supporting
-numbers.
+Review `a6eee2f8-ce5b-4686-a1f4-2c90c159bdd2` reports repeated playback crashes
+and songs stopping after one or two tracks. Its source hash is
+`9e01ec40810414475ecf5146be0ca5428e044f5f9a43e9c68219cfe9ad3d173b`.
+The saved Jev call (`request_id` `641c6689-9652-47e3-9ed0-f11467602de0`)
+completed on its first attempt and produced `playback`, `complaint`, severity 4,
+sentiment -0.995, with `needs_review=true`. Baseline membership assigns it to
+`topic:playback`. That issue contains 8,683 complaint/cancellation records
+[C0001], severity sum 30,985 [C0002], mean severity 3.568467 [C0003], and
+priority score 30,985 [C0004]. The final memo and public dashboard cite the same
+saved issue and expose the review ID as traceable evidence.
 
 ## Failed and ambiguous cases
 
@@ -272,8 +332,11 @@ The 100-review cold pilot completed 100/100 records with no final failures. Its
 verify, group, and memo roles, for $0.0075 at the dated editable Jev rates. The
 warm replay took 0.79 seconds and made zero new enrichment calls. The original
 cold orchestrator did not persist one trustworthy end-to-end stopwatch value;
-the report preserves 25.602 seconds of summed request durations and marks cold
-wall time unknown rather than inventing it.
+the report preserves its 25.602 seconds of summed request durations. A fresh
+empty-state recheck of the same 100-row, one-worker workflow subsequently
+measured **21.94 seconds end to end**, 174 successful calls, no failures, and
+$0.0073 at the saved rate. `cost/usage.csv` retains both runs rather than
+rewriting the original evidence.
 
 The submitted 100,100-row scope cost $3.0033 at the saved rates. The optional
 full-corpus base projection is $42.0892 total ($6.3711/100k rows); the
@@ -317,7 +380,11 @@ python check_submission.py check --reference local-reference.json --submission g
 
 ## Dashboard and database
 
-The dashboard is a private Vinext/Cloudflare Worker Site with a D1 database.
+The dashboard is a **public** Vinext/Cloudflare Worker Site with a D1 database:
+https://spotify-insight-haas.eveyygou.chatgpt.site/. It does not require a
+ChatGPT login; an anonymous request to both `/` and `/api/insights` returns HTTP
+200. `chatgpt-auth.ts` is retained starter compatibility code but is not used to
+gate the published page or API.
 Tables `dataset_summary`, `issue_rankings`, and `review_evidence` back both the
 page and the read-only `/api/insights` endpoint. The deployed database contains
 eight final ranked topics plus traceable evidence rows. The deployed page and

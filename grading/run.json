@@ -1,0 +1,14 @@
+{
+  "version": "a5-audit-v1",
+  "analysis_count": 100100,
+  "analysis_sha256": "c2ad0e35ab8048ab706b4191bf4d5f7ad65c387ed7c081b1c4ff8f5c528ffa8a",
+  "classification_input_fields": [
+    "review_text"
+  ],
+  "allow_multi_issue": false,
+  "label_config": "jev-latest+prompt-v1+schema-v1",
+  "provider_request_batch_size": 1,
+  "provider_batch_size_reason": "multi-state pilot returned one aggregate answer",
+  "workers": 2,
+  "spend_cap_usd": 10.0
+}

@@ -125,6 +125,12 @@ def main():
             first = run_pipeline(source, out, url)
             records = {row["review_id"]: row for row in read_jsonl(out / "records.jsonl")}
             calls = read_jsonl(out / "calls.jsonl")
+            checkpoint_before = json.loads(
+                (out / "checkpoint_before.json").read_text(encoding="utf-8")
+            )
+            checkpoint_after = json.loads(
+                (out / "checkpoint_after.json").read_text(encoding="utf-8")
+            )
 
             assertions = {
                 "injection_treated_as_data": records["prompt-injection"]["topic"] == "playback",
@@ -135,6 +141,8 @@ def main():
                 "all_primary_cases_completed": len(records) == 5,
                 "malformed_attempt_logged": any(c.get("error_kind") == "invalid_output" for c in calls),
                 "temporary_attempt_logged": any(c.get("error_kind") == "transient_http" for c in calls),
+                "fresh_checkpoint_before_empty": checkpoint_before["count"] == 0,
+                "fresh_checkpoint_after_complete": checkpoint_after["count"] == 5,
             }
 
             recovery_out = temp_root / "recovery"

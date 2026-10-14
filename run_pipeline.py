@@ -491,7 +491,10 @@ def main():
     phase = "resume" if db_path.exists() else "initial"
     db = open_db(db_path)
     before_path = out / "checkpoint_before.json"
-    if phase == "resume" and not before_path.exists():
+    # A fresh run must retain an explicit empty pre-run checkpoint so the
+    # orchestrator can package the same resume evidence as a resumed run.
+    # Never replace an existing checkpoint: it is the stable before-state.
+    if not before_path.exists():
         snapshot_completed(db, before_path)
     selected = args.limit - args.start_index if args.limit is not None else sum(1 for _ in source.open(encoding="utf-8")) - 1 - args.start_index
     args.spend_cap = selected * DEFAULT_WORST_CASE_COST if args.spend_cap is None else args.spend_cap

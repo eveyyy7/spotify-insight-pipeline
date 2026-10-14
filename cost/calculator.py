@@ -113,6 +113,11 @@ def main():
     usage = load_usage()
     rates = load_rates()
     stages = measured_stage_rows(usage)
+    cold_recheck = next(
+        row for row in usage
+        if row["run_id"] == "cold_recheck_100"
+        and row["role"] == "end_to_end"
+    )
 
     # -----------------------------------------
     # MEASURED 100-REVIEW COLD PILOT
@@ -316,6 +321,23 @@ def main():
     print(
         "Cold API cost:",
         money(measured_cost),
+    )
+
+    cold_recheck_cost = (
+        int(cold_recheck["input_tokens"])
+        * rates.get("input_tokens", 0)
+        + int(cold_recheck["output_tokens"])
+        * rates.get("output_tokens", 0)
+    )
+
+    print(
+        "Fresh cold recheck wall clock:",
+        f"{float(cold_recheck['wall_clock_seconds']):.2f} sec",
+    )
+
+    print(
+        "Fresh cold recheck API cost:",
+        money(cold_recheck_cost),
     )
 
     print(

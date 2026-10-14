@@ -1,93 +1,48 @@
-Spotify Insight Pipeline - Recommendation Evidence
+Spotify Insight Pipeline - Final Recommendation Evidence
+
+DECLARED SCOPE
+
+- 100,100 original rows
+- 100,099 completed classifications
+- 1 empty-text quarantine
+- 0 missing or unresolved IDs
 
 PRIMARY RECOMMENDATION
 
-Prioritize reducing free-tier friction caused by Premium gating of core playback controls, especially:
-- song selection
-- queue management
-- repeat
-- skip / previous
-- seeking within tracks
+Prioritize playback reliability in the next product cycle: reduce crashes and
+unexpected stops, prevent unwanted track substitution, and make
+failure-to-start states diagnosable and recoverable.
 
-THEME RANKING
+FINAL BASELINE RANKING
 
-1. free_tier_premium_gating
-   - Priority score: 2474
-   - Complaint count: 833
-   - Mean severity: 2.970
+1. topic:playback
+   - Complaint/cancellation count: 8,683 [C0001]
+   - Severity sum: 30,985 [C0002]
+   - Mean severity: 3.568467 [C0003]
+   - Priority score: 30,985 [C0004]
 
-2. playback_reliability
-   - Priority score: 1221
-   - Complaint count: 345
-   - Mean severity: 3.539
+2. topic:usability
+   - Complaint/cancellation count: 10,514 [C0005]
+   - Severity sum: 28,327 [C0006]
+   - Mean severity: 2.694217 [C0007]
+   - Priority score: 28,327 [C0008]
 
-3. ads_experience
-   - Priority score: 1191
-   - Complaint count: 520
-   - Mean severity: 2.290
+WHY PLAYBACK WINS
 
-4. product_regression_ui
-   - Priority score: 973
-   - Complaint count: 351
-   - Mean severity: 2.772
+The deterministic priority score is the severity sum. Playback has fewer
+complaint/cancellation records than usability, but its higher mean severity
+produces the largest cumulative burden: 30,985 versus 28,327.
 
-WHY #1 WINS
+TRACEABLE EXAMPLE
 
-Free-tier Premium gating is not the most severe issue per complaint,
-but it combines high complaint volume with meaningful severity.
+review_id: a6eee2f8-ce5b-4686-a1f4-2c90c159bdd2
+source_sha256: 9e01ec40810414475ecf5146be0ca5428e044f5f9a43e9c68219cfe9ad3d173b
+labels: playback / complaint / severity 4 / needs_review true
+membership: topic:playback
 
-Its cumulative priority score (2474) is approximately twice that of
-playback reliability (1221).
-
-Ads generate more complaints than several other issues, but their
-mean severity is substantially lower (2.29), producing a lower
-priority score (1191).
-
-TOP SUB-ISSUES WITHIN FREE-TIER / PREMIUM GATING
-
-1. billing__premium_feature_paywall
-   - Score: 1362
-   - Complaints: 425
-   - Mean severity: 3.205
-
-2. billing__premium_pressure_pricing
-   - Score: 593
-   - Complaints: 252
-   - Mean severity: 2.353
-
-3. usability__playback_controls_restricted
-   - Score: 519
-   - Complaints: 156
-   - Mean severity: 3.327
-
-REPRESENTATIVE USER EVIDENCE
-
-Quote 1:
-"Wanted this so I could listen to Doctor Who audio dramas at work,
-found out it was basically impossible to play the tracks in their
-intended order without premium. Ads I can accept, but locking basic
-functionality behind a paywall is vile."
-
-Quote 2:
-"Used to be my favourite app but after the recent update I can't even
-que up my songs, play on repeat or even skip or replay a part of the
-song for free. They turned everything into a premium feature."
-
-Quote 3:
-"I can't choose the songs I want to play. Has to be a premium
-subscription for that, the most basic thing to do. No thanks!"
-
-COMPARISON
-
-Playback reliability:
-- Higher mean severity (3.539)
-- Lower affected complaint volume (345)
-- Priority score 1221
-
-Ads experience:
-- Higher complaint volume than many individual sub-issues (520)
-- Lower mean severity (2.290)
-- Priority score 1191
-
-Therefore, Premium gating creates the largest cumulative complaint
-burden among the actionable themes in the 10K analysis.
+Sources of truth:
+- grading/ranking.csv
+- grading/claims.csv
+- grading/membership.csv
+- grading/memo.md
+- https://spotify-insight-haas.eveyygou.chatgpt.site/

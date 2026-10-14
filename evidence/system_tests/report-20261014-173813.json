@@ -1,0 +1,91 @@
+{
+  "suite": "spotify-pipeline-system-tests-v1",
+  "timestamp_utc": "2026-10-14T17:38:13Z",
+  "synthetic_fixtures_excluded_from_business_results": true,
+  "passed": true,
+  "assertions": {
+    "injection_treated_as_data": true,
+    "planted_error_detected": true,
+    "malformed_output_retried": true,
+    "ambiguous_case_flagged": true,
+    "temporary_failure_retried": true,
+    "all_primary_cases_completed": true,
+    "malformed_attempt_logged": true,
+    "temporary_attempt_logged": true,
+    "fresh_checkpoint_before_empty": true,
+    "fresh_checkpoint_after_complete": true,
+    "explicit_recovery_completed": true,
+    "recovery_released_reservation": true,
+    "recovery_was_reported": true
+  },
+  "attempts_by_case": {
+    "prompt-injection": 2,
+    "planted-label-error": 2,
+    "malformed-output": 3,
+    "ambiguous-low-confidence": 2,
+    "temporary-failure": 3
+  },
+  "primary_call_outcomes": [
+    {
+      "review_ids": [
+        "prompt-injection"
+      ],
+      "attempt": 1,
+      "outcome": "succeeded",
+      "error_kind": null
+    },
+    {
+      "review_ids": [
+        "planted-label-error"
+      ],
+      "attempt": 1,
+      "outcome": "succeeded",
+      "error_kind": null
+    },
+    {
+      "review_ids": [
+        "malformed-output"
+      ],
+      "attempt": 1,
+      "outcome": "failed",
+      "error_kind": "invalid_output"
+    },
+    {
+      "review_ids": [
+        "ambiguous-low-confidence"
+      ],
+      "attempt": 1,
+      "outcome": "succeeded",
+      "error_kind": null
+    },
+    {
+      "review_ids": [
+        "malformed-output"
+      ],
+      "attempt": 2,
+      "outcome": "succeeded",
+      "error_kind": null
+    },
+    {
+      "review_ids": [
+        "temporary-failure"
+      ],
+      "attempt": 1,
+      "outcome": "failed",
+      "error_kind": "transient_http"
+    },
+    {
+      "review_ids": [
+        "temporary-failure"
+      ],
+      "attempt": 2,
+      "outcome": "succeeded",
+      "error_kind": null
+    }
+  ],
+  "notes": {
+    "planted_error": "The mock provider deliberately returns praise/other for a clear playback complaint; the harness detects the mismatch.",
+    "injection": "The instruction-like review remains provider state data and does not alter the fixed question schema.",
+    "recovery": "Recovery is explicit because an interrupted HTTP request may still have been billed."
+  }
+}

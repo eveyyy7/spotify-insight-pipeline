@@ -1,6 +1,6 @@
 {
   "suite": "spotify-pipeline-system-tests-v1",
-  "timestamp_utc": "2026-10-14T06:37:19Z",
+  "timestamp_utc": "2026-10-14T17:38:13Z",
   "synthetic_fixtures_excluded_from_business_results": true,
   "passed": true,
   "assertions": {
@@ -12,6 +12,8 @@
     "all_primary_cases_completed": true,
     "malformed_attempt_logged": true,
     "temporary_attempt_logged": true,
+    "fresh_checkpoint_before_empty": true,
+    "fresh_checkpoint_after_complete": true,
     "explicit_recovery_completed": true,
     "recovery_released_reservation": true,
     "recovery_was_reported": true
